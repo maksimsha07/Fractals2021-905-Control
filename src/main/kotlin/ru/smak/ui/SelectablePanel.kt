@@ -5,11 +5,27 @@ import java.awt.Color
 import java.awt.Point
 import java.awt.Rectangle
 import java.awt.event.*
+import java.lang.Integer.min
 
 class SelectablePanel(vararg painters: Painter) : GraphicsPanel(*painters){
 
     private var pt1: Point? = null
     private var pt2: Point? = null
+
+    private var rect: Rectangle? = null
+        get(){
+            pt1?.let { p1 ->
+                pt2?.let { p2 ->
+                    return Rectangle(
+                        min(p1.x, p2.x),
+                        min(p1.y, p2.y),
+                        Math.abs(p2.x - p1.x),
+                        Math.abs(p2.y - p1.y)
+                    )
+                }
+            }
+            return null
+        }
 
     private var selectListeners: MutableList<(Rectangle)->Unit> = mutableListOf()
     fun addSelectListener(l: (Rectangle)->Unit){
@@ -35,15 +51,12 @@ class SelectablePanel(vararg painters: Painter) : GraphicsPanel(*painters){
                 super.mouseReleased(e)
                 ///
                 drawSelectRect()
-                pt1?.let{ p1->
-                    pt2?.let{ p2->
-                        selectListeners.forEach {
-                            it(Rectangle(p1.x, p1.y, p2.x - p1.x, p2.y - p1.y))}
-                    }
+                rect?.let{ r->
+                    selectListeners.forEach { it(r)}
                 }
-
                 pt1 = null
                 pt2 = null
+                rect = null
             }
         })
 
@@ -61,12 +74,10 @@ class SelectablePanel(vararg painters: Painter) : GraphicsPanel(*painters){
     private fun drawSelectRect(){
         with (graphics){
             setXORMode(Color.WHITE)
-            pt1?.let { p1->
-                pt2?.let { p2->
-                    drawRect(p1.x, p1.y, p2.x - p1.x, p2.y - p1.y)
-                }
+            rect?.let { r ->
+                drawRect(r.x, r.y, r.width, r.height)
+                setPaintMode()
             }
-            setPaintMode()
         }
     }
 }
