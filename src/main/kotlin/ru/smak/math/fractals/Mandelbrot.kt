@@ -3,13 +3,14 @@ package ru.smak.math.fractals
 import org.kotlinmath.Complex
 import org.kotlinmath.complex
 import ru.smak.math.complex.mod2
+import kotlin.math.abs
 
 object Mandelbrot : Fractal{
 
     private var R2 = 4.0
     var R = 2.0
         set(value) {
-            field = Math.abs(value).coerceAtLeast(2 * Double.MIN_VALUE)
+            field = abs(value).coerceAtLeast(2 * Double.MIN_VALUE)
             R2 = value * value
         }
     var maxIterations: Int = 200
