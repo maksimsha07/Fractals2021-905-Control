@@ -2,12 +2,11 @@ package ru.smak.video
 
 import io.humble.video.*
 import io.humble.video.awt.MediaPictureConverterFactory
+import org.kotlinmath.Complex
 import org.kotlinmath.complex
 import ru.smak.math.catmullRom
-import ru.smak.math.easeOutExp
 import ru.smak.ui.painting.CartesianPlane
 import java.awt.image.BufferedImage
-import java.lang.Double.min
 import kotlin.math.max
 
 
@@ -65,26 +64,23 @@ internal object VideoRenderer {
     }
 
     private fun createFrameData(keyFrames: List<CartesianPlane>): List<CartesianPlane> {
-        val points = keyFrames.map { complex((it.xMin + it.xMax) * 0.5, (it.yMin + it.yMax) * 0.5) }
-
-        val v0 = keyFrames.first()
-        val v1 = keyFrames.last()
-        val finalZoom = min(v1.width.toDouble() / v0.width, v1.height.toDouble() / v0.height)
-
-        val width = max(v0.width, v0.height)
-        val height = width / aspectRatio
-
+        val minCorners = ArrayList<Complex>()
+        val maxCorners = ArrayList<Complex>()
+        keyFrames.forEach {
+            // HACK: Здесь проводится принудительная коррекция соотношения сторон в ключевых кадрах
+            val halfWidth = max(it.width, it.height) * 0.5f
+            val halfHeight = halfWidth / aspectRatio * 0.5f
+            val (x, y) = Pair((it.xMin + it.xMax) * 0.5, (it.yMin + it.yMax) * 0.5)
+            minCorners.add(complex(x - halfWidth, y - halfHeight))
+            maxCorners.add(complex(x + halfWidth, y + halfHeight))
+        }
         val out = mutableListOf<CartesianPlane>()
         val frameCount = fps * duration
         repeat(frameCount) {
             val t = it.toDouble() / (frameCount-1)
-            val zoom = easeOutExp(1.0, finalZoom, t)
-            val center = catmullRom(t, points)
-            val (x, y) = Pair(center.re, center.im)
-            out.add(CartesianPlane(
-                x - width * zoom * 0.5, x + width * zoom * 0.5,
-                y - height * zoom * 0.5, y + height * zoom * 0.5
-            ))
+            val p0 = catmullRom(t, minCorners)
+            val p1 = catmullRom(t, maxCorners)
+            out.add(CartesianPlane(p0.re, p1.re, p0.im, p1.im))
         }
         return out
     }

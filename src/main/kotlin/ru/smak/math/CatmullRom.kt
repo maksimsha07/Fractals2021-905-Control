@@ -23,10 +23,10 @@ fun catmullRomSpline(a: Complex, b: Complex, c: Complex, d: Complex, t: Double):
     val t1 = (c - a) * 0.5
     val t2 = (d - b) * 0.5
 
-    val h1 = +2 * t * t * t - 3 * t * t + 1
-    val h2 = -2 * t * t * t + 3 * t * t
-    val h3 = t * t * t - 2 * t * t + t
-    val h4 = t * t * t - t * t
+    val h1 = +2 * t * t * t - 3 * t * t + 1 //  2t^3 - 3t^2 + 1
+    val h2 = -2 * t * t * t + 3 * t * t     // -2t^3 + 3t^2
+    val h3 = t * t * t - 2 * t * t + t      //   t^3 - 2t^2 + t
+    val h4 = t * t * t - t * t              //   t^3 -  t^2
 
     return b * h1 + c * h2 + t1 * h3 + t2 * h4
 }
