@@ -5,7 +5,7 @@ import org.kotlinmath.complex
 import ru.smak.math.complex.mod2
 import kotlin.math.sqrt
 
-class Julia(x0: Int, y0: Int): Fractal {
+class Julia(x0: Double, y0: Double): Fractal {
     private var c0 = complex(x0, y0)
     private var R2 = 4.0
     var R = 2.0
