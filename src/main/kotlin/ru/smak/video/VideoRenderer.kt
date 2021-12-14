@@ -2,17 +2,12 @@ package ru.smak.video
 
 import io.humble.video.*
 import io.humble.video.awt.MediaPictureConverterFactory
-import org.kotlinmath.Complex
-import org.kotlinmath.ZERO
 import org.kotlinmath.complex
-import ru.smak.events.Event
-import ru.smak.math.CatmullRom
-import ru.smak.math.complex.mod2
+import ru.smak.math.catmullRom
 import ru.smak.math.easeOutExp
 import ru.smak.ui.painting.CartesianPlane
 import java.awt.image.BufferedImage
 import java.lang.Double.min
-import kotlin.math.ln
 import kotlin.math.max
 
 
@@ -71,7 +66,6 @@ internal object VideoRenderer {
 
     private fun createFrameData(keyFrames: List<CartesianPlane>): List<CartesianPlane> {
         val points = keyFrames.map { complex((it.xMin + it.xMax) * 0.5, (it.yMin + it.yMax) * 0.5) }
-        val catmullRom = CatmullRom(points, 0.5)
 
         val v0 = keyFrames.first()
         val v1 = keyFrames.last()
@@ -85,7 +79,7 @@ internal object VideoRenderer {
         repeat(frameCount) {
             val t = it.toDouble() / (frameCount-1)
             val zoom = easeOutExp(1.0, finalZoom, t)
-            val center = catmullRom(t)
+            val center = catmullRom(t, points)
             val (x, y) = Pair(center.re, center.im)
             out.add(CartesianPlane(
                 x - width * zoom * 0.5, x + width * zoom * 0.5,
