@@ -7,13 +7,7 @@ import kotlin.math.max
 import kotlin.math.min
 import kotlin.math.pow
 
-fun lerpUnclamped(p0: Complex, p1: Complex, t: Double): Complex {
-    return p0 + (p1 - p0) * t
-}
 
-fun lerpUnclamped(p0: Double, p1: Double, t: Double): Double {
-    return p0 + (p1 - p0) * t
-}
 
 class CatmullRomCurve(
     var p0: Complex, var p1: Complex, var p2: Complex, var p3: Complex, var alpha: Double
