@@ -17,7 +17,7 @@ class JuliaFrame(x0: Double, y0: Double, colorizer0: (Double)->Color) : JFrame()
         minimumSize = Dimension(500, 500)
         setLocationRelativeTo(null);
 
-        plane = CartesianPlane(-1.5, 1.5, -1.5, 1.5)
+        plane = CartesianPlane(-2.0, 2.0, -2.0, 2.0)
 
         fractalPanel = SelectablePanel(
             FractalPainter(plane, Julia(x0, y0)).apply {
