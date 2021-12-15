@@ -51,7 +51,7 @@ class MainFrame : JFrame() {
                 if (e?.button == 1) {
                     with(plane){
                         juliaFrame.setVisible(false)
-                        juliaFrame = (JuliaFrame(xScr2Crt(e.x), yScr2Crt(e.y), frameColorizer, this))
+                        juliaFrame = (JuliaFrame(xScr2Crt(e.x), yScr2Crt(e.y), frameColorizer, this, this@MainFrame.size ))
                         juliaFrame.setVisible(true)
                     }
                 }
