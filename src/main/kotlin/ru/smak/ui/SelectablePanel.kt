@@ -49,7 +49,19 @@ class SelectablePanel(vararg painters: Painter) : GraphicsPanel(*painters){
 
             override fun mouseReleased(e: MouseEvent?) {
                 super.mouseReleased(e)
-                ///
+                var panelAspectRatio = width/height.toDouble()  //Разрешение панели
+                val minRes:Double = panelAspectRatio-0.2    //Разрешение панели - погрешность
+                val maxRes:Double = panelAspectRatio+0.2    //Разрешение панели + погрешность
+
+                rect?.let {
+                    var rectAspectRatio = it.width/it.height.toDouble()
+
+                    if((rectAspectRatio<minRes)||(rectAspectRatio>maxRes)) { //Если выбранная область не подходит нашему разрешению
+
+                    }
+                }
+
+
                 drawSelectRect()
                 rect?.let{ r->
                     selectListeners.forEach { it(r)}
