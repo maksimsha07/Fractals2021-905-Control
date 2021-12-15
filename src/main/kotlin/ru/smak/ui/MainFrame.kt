@@ -19,8 +19,8 @@ class MainFrame : JFrame() {
 
     private val fractalPanel: SelectablePanel
     private val plane: CartesianPlane
-    private var frameColorizer: (Double)->Color
-    private var juliaFrame: JFrame
+    private var frameColorizer: (Double)->Color    // переменная, в которой будет храниться значение колорайзера для фракталов
+    private var juliaFrame: JFrame        // окно, в котором будет отображаться множество Жюлиа
 
     init {
         defaultCloseOperation = EXIT_ON_CLOSE
@@ -46,6 +46,7 @@ class MainFrame : JFrame() {
         }
 
         // Если пользователь кликнет по панели с изображением множества Мандельброта, появится окно с изображением множества Жюлиа
+        // При чем если уже было открыто одно такое окно, новое окно появится вместо него
         fractalPanel.addMouseListener(object : MouseAdapter(){
             override fun mouseClicked(e: MouseEvent?) {
                 if (e?.button == 1) {
