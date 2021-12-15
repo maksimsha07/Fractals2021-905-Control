@@ -20,10 +20,12 @@ class MainFrame : JFrame() {
     private val fractalPanel: SelectablePanel
     private val plane: CartesianPlane
     private var frameColorizer: (Double)->Color
+    private var juliaFrame: JFrame
 
     init {
         defaultCloseOperation = EXIT_ON_CLOSE
         minimumSize = Dimension(600, 400)
+        juliaFrame = JFrame()
 
         plane = CartesianPlane(-2.0, 1.0, -1.0, 1.0)
 
@@ -48,8 +50,9 @@ class MainFrame : JFrame() {
             override fun mouseClicked(e: MouseEvent?) {
                 if (e?.button == 1) {
                     with(plane){
-                        val juliaFrame = JuliaFrame(xScr2Crt(e.x), yScr2Crt(e.y), frameColorizer, this)
-                        juliaFrame.setVisible(true);
+                        juliaFrame.setVisible(false)
+                        juliaFrame = (JuliaFrame(xScr2Crt(e.x), yScr2Crt(e.y), frameColorizer, this))
+                        juliaFrame.setVisible(true)
                     }
                 }
             }
