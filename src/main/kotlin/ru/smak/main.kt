@@ -11,6 +11,12 @@ import ru.smak.video.videoRecordingStarted
 import java.util.concurrent.CompletableFuture
 
 fun main(args: Array<String>) {
+    MainFrame().apply {
+        isVisible = true
+    }
+}
+
+fun testVideo() {
     val keyFrames = listOf(
         CartesianPlane(-2.0, 1.0, -1.0, 1.0),
         CartesianPlane(-1.807625649913345, -1.490467937608319, -0.07909604519774005, 0.096045197740113),
@@ -43,11 +49,8 @@ fun main(args: Array<String>) {
     imageRecorded.add { _, data -> println("Recorded image: ${data.timestamp} / ${data.last}") }
     VideoRecorder.frameWidth = 640
     VideoRecorder.frameHeight = 480
-    VideoRecorder.duration = 120
-    VideoRecorder.fps = 30
+    VideoRecorder.duration = 30
+    VideoRecorder.fps = 24
     VideoRecorder.createVideoAsync(keyFrames, "fractal5.avi", "avi")
-    MainFrame().apply {
-        isVisible = true
-    }
 }
 
