@@ -6,6 +6,7 @@ import io.humble.video.awt.MediaPictureConverterFactory
 import org.kotlinmath.Complex
 import org.kotlinmath.complex
 import ru.smak.events.Event
+import ru.smak.events.colorSchemeChanged
 import ru.smak.math.catmullRom
 import ru.smak.math.easeOutExp
 import ru.smak.math.fractals.Mandelbrot
@@ -44,6 +45,11 @@ internal object VideoRecorder {
     val aspectRatio: Double
     get() = frameWidth.toDouble() / frameHeight
 
+    init {
+        colorSchemeChanged.add { _, function ->
+            colorizer = function
+        }
+    }
 
     fun createVideoAsync(keyFrames: List<CartesianPlane>, fileName: String, formatType: String) = CompletableFuture
         .supplyAsync {

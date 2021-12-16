@@ -11,7 +11,7 @@ import ru.smak.video.videoRecordingStarted
 import java.util.concurrent.CompletableFuture
 
 fun main(args: Array<String>) {
-    testVideo()
+//    testVideo()
     MainFrame().apply {
         isVisible = true
     }
