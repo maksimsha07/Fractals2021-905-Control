@@ -11,6 +11,7 @@ import ru.smak.video.videoRecordingStarted
 import java.util.concurrent.CompletableFuture
 
 fun main(args: Array<String>) {
+    testVideo()
     MainFrame().apply {
         isVisible = true
     }
@@ -50,7 +51,7 @@ fun testVideo() {
     VideoRecorder.frameWidth = 640
     VideoRecorder.frameHeight = 480
     VideoRecorder.duration = 30
-    VideoRecorder.fps = 24
-    VideoRecorder.createVideoAsync(keyFrames, "fractal5.avi", "avi")
+    VideoRecorder.fps = 30
+    VideoRecorder.createVideoAsync(keyFrames, "fractal.avi", "avi")
 }
 

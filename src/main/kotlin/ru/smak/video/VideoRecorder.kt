@@ -7,9 +7,11 @@ import org.kotlinmath.Complex
 import org.kotlinmath.complex
 import ru.smak.events.Event
 import ru.smak.math.catmullRom
+import ru.smak.math.easeOutExp
 import ru.smak.math.fractals.Mandelbrot
 import ru.smak.math.lerpUnclamped
 import ru.smak.ui.painting.CartesianPlane
+import ru.smak.ui.painting.fractals.pinkFractal
 import ru.smak.ui.painting.fractals.yellowFractal
 import java.awt.Color
 import java.awt.Graphics
@@ -128,7 +130,7 @@ internal object VideoRecorder {
     ): Pair<CartesianPlane, ImageData> {
 
         val t = frame.toDouble() / lastFrame
-        val center = catmullRom(t, centers)
+        val center = catmullRom(easeOutExp(0.0, 1.0, t), centers)
         val zoom = exp(lerpUnclamped(0.0, endLinearZoom, t))
         val hh = startHeight * zoom * 0.5
         val hw = hh * aspectRatio
