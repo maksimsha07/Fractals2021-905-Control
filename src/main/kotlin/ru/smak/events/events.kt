@@ -1,4 +1,6 @@
 package ru.smak.events
 
-val colorSchemeChanged = Event<(Double) -> Float>()
+import java.awt.Color
+
+val colorSchemeChanged = Event<(Double) -> Color>()
 
