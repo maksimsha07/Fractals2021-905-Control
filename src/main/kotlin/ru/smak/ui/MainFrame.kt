@@ -48,8 +48,8 @@ class MainFrame : JFrame() {
             override fun mouseClicked(e: MouseEvent?) {
                 if (e?.button == 1) {
                     with(plane){
-                        juliaFrame.setVisible(false)
-                        juliaFrame = (JuliaFrame(xScr2Crt(e.x), yScr2Crt(e.y), frameColorizer, this, this@MainFrame.size ))
+                        juliaFrame.dispose()
+                        juliaFrame = JuliaFrame(xScr2Crt(e.x), yScr2Crt(e.y), frameColorizer)
                         juliaFrame.setVisible(true)
                     }
                 }

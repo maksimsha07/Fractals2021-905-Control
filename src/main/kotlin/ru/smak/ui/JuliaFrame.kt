@@ -8,17 +8,16 @@ import java.awt.Dimension
 import javax.swing.GroupLayout
 import javax.swing.JFrame
 
-class JuliaFrame(x0: Double, y0: Double, colorizer0: (Double)->Color, plane0: CartesianPlane, size0: Dimension) : JFrame() {
+class JuliaFrame(x0: Double, y0: Double, colorizer0: (Double)->Color) : JFrame() {
 
     private val fractalPanel: SelectablePanel
     private val plane: CartesianPlane
 
     init {
-        minimumSize = Dimension(600, 400)
+        minimumSize = Dimension(500, 500)
         setLocationRelativeTo(null);
 
-        plane = CartesianPlane(plane0.xMin, plane0.xMax, plane0.yMin, plane0.yMax)
-        this.size = size0
+        plane = CartesianPlane(-2.0, 2.0, -2.0, 2.0)
 
         fractalPanel = SelectablePanel(
             FractalPainter(plane, Julia(x0, y0)).apply {
