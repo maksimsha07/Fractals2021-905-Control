@@ -12,6 +12,6 @@ fun lerpUnclamped(p0: Double, p1: Double, t: Double): Double {
 }
 
 fun easeOutExp(p0: Double, p1: Double, t: Double): Double {
-    val param = if (t == 1.0) 1.0 else -(2.0.pow(-10*t)) + 1
+    val param = if (t == 1.0) 1.0 else -(2.0.pow(-50*t))
     return p0 + (p1 - p0) * param
 }
