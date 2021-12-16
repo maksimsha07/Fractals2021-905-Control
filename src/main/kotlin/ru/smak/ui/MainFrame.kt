@@ -37,7 +37,6 @@ class MainFrame : JFrame() {
                 with(plane){
                     xSegment = Pair(xScr2Crt(r.x), xScr2Crt(r.x+r.width))
                     ySegment = Pair(yScr2Crt(r.y), yScr2Crt(r.y+r.height))
-                    println("CartesianPlane($xMin, $xMax, $yMin, $yMax),")
                 }
                 repaint()
             }
@@ -49,14 +48,9 @@ class MainFrame : JFrame() {
             override fun mouseClicked(e: MouseEvent?) {
                 if (e?.button == 1) {
                     with(plane){
-                        juliaFrame.dispose() // FIXME: Вместо того, чтобы спрятать окно вызовом setVisible(false), его следует закрыть
-                        juliaFrame = JuliaFrame(
-                            xScr2Crt(e.x), yScr2Crt(e.y),
-                            frameColorizer,
-                            CartesianPlane(-2.0, 1.0, -1.0, 1.0), // FIXME: Следует передавать новую плоскость, а не текущую,
-                                                                  //  которая относится ко множеству Мандельброта
-                            this@MainFrame.size )
-                        juliaFrame.isVisible = true
+                        juliaFrame.setVisible(false)
+                        juliaFrame = (JuliaFrame(xScr2Crt(e.x), yScr2Crt(e.y), frameColorizer, this, this@MainFrame.size ))
+                        juliaFrame.setVisible(true)
                     }
                 }
             }
