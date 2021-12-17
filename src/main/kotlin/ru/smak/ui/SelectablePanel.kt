@@ -6,6 +6,7 @@ import java.awt.Point
 import java.awt.Rectangle
 import java.awt.event.*
 import java.lang.Integer.min
+import javax.swing.JComponent
 
 class SelectablePanel(vararg painters: Painter) : GraphicsPanel(*painters){
 
@@ -59,6 +60,18 @@ class SelectablePanel(vararg painters: Painter) : GraphicsPanel(*painters){
                 rect = null
             }
         })
+
+        addKeyListener(object : KeyAdapter(){
+            override fun keyTyped(e: KeyEvent?) {
+                super.keyPressed(e)
+                if (e != null)
+                    if (e.keyChar == 'z') {
+                        print(3)
+                    }
+
+            }
+        })
+
 
         addMouseMotionListener(object : MouseMotionAdapter(){
             override fun mouseDragged(e: MouseEvent?) {

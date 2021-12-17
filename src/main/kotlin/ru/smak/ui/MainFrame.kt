@@ -23,7 +23,6 @@ class MainFrame : JFrame() {
         defaultCloseOperation = EXIT_ON_CLOSE
         minimumSize = Dimension(600, 400)
         juliaFrame = JFrame()
-
         plane = CartesianPlane(-2.0, 1.0, -1.0, 1.0)
 
         fractalPanel = SelectablePanel(
@@ -41,7 +40,7 @@ class MainFrame : JFrame() {
                 repaint()
             }
         }
-
+        fractalPanel.isFocusable = true
         // Если пользователь кликнет по панели с изображением множества Мандельброта, появится окно с изображением множества Жюлиа
         // При чем если уже было открыто одно такое окно, новое окно появится вместо него
         fractalPanel.addMouseListener(object : MouseAdapter(){
@@ -52,6 +51,7 @@ class MainFrame : JFrame() {
                         juliaFrame = JuliaFrame(xScr2Crt(e.x), yScr2Crt(e.y), frameColorizer)
                         juliaFrame.setVisible(true)
                     }
+
                 }
             }
         })
