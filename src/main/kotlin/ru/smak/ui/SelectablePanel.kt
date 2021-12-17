@@ -1,13 +1,15 @@
 package ru.smak.ui
 
+import ru.smak.ui.painting.FractalPainter
 import ru.smak.ui.painting.Painter
 import java.awt.Color
 import java.awt.Point
 import java.awt.Rectangle
 import java.awt.event.*
 import java.lang.Integer.min
+import java.lang.Math.round
 
-class SelectablePanel(vararg painters: Painter) : GraphicsPanel(*painters){
+class SelectablePanel(vararg painters: FractalPainter) : GraphicsPanel(*painters){
 
     private var pt1: Point? = null
     private var pt2: Point? = null
@@ -52,10 +54,7 @@ class SelectablePanel(vararg painters: Painter) : GraphicsPanel(*painters){
                 ///
                 drawSelectRect()
                 rect?.let { r ->
-                    r.x
-                    r.y
-                    r.width
-                    r.height
+                    painters[0].numIterations = 250 - round((r.height*10).toDouble()*100).toInt())
                 }
                 rect?.let{ r->
                     selectListeners.forEach { it(r)}

@@ -19,6 +19,7 @@ class FractalPainter(
 
     var colorizer: (Double)->Color = ::getDefaultColor
     private var pool: ExecutorService? = null
+    var numIterations = 50
 
     override var size: Dimension
         get() = plane.pixelSize
@@ -27,6 +28,7 @@ class FractalPainter(
         }
 
     override fun paint(g: Graphics) {
+        frac.maxIterations = numIterations
         if (plane.width == 0 || plane.height ==0) return
         val threadCount = 16
         val poolTaskCount = threadCount * 4
