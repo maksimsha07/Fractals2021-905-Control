@@ -51,6 +51,12 @@ class SelectablePanel(vararg painters: Painter) : GraphicsPanel(*painters){
             override fun mouseReleased(e: MouseEvent?) {
                 super.mouseReleased(e)
                 drawSelectRect()
+                rect?.let { r ->
+                    r.x
+                    r.y
+                    r.width
+                    r.height
+                }
                 rect?.let{ r->
                     selectListeners.forEach { it(r)}
                 }
