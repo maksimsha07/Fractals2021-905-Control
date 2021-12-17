@@ -13,7 +13,7 @@ object Mandelbrot : Fractal{
             field = Math.abs(value).coerceAtLeast(2 * Double.MIN_VALUE)
             R2 = value * value
         }
-    override var maxIterations: Int = 50
+    var maxIterations: Int = 50
 
     override fun isInSet(c: Complex): Double{
         var z = complex(0, 0)
