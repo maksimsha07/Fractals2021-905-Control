@@ -6,13 +6,12 @@ import java.awt.Point
 import java.awt.Rectangle
 import java.awt.event.*
 import java.lang.Integer.min
-import javax.swing.JComponent
+import java.util.*
 
 class SelectablePanel(vararg painters: Painter) : GraphicsPanel(*painters){
 
     private var pt1: Point? = null
     private var pt2: Point? = null
-
     private var rect: Rectangle? = null
         get(){
             pt1?.let { p1 ->
@@ -58,17 +57,6 @@ class SelectablePanel(vararg painters: Painter) : GraphicsPanel(*painters){
                 pt1 = null
                 pt2 = null
                 rect = null
-            }
-        })
-
-        addKeyListener(object : KeyAdapter(){
-            override fun keyTyped(e: KeyEvent?) {
-                super.keyPressed(e)
-                if (e != null)
-                    if (e.keyChar == 'z') {
-                        print(3)
-                    }
-
             }
         })
 
