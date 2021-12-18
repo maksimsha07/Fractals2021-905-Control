@@ -3,8 +3,8 @@ package ru.smak.ui.painting.fractals
 import java.awt.Color
 
 val colorizers = mutableListOf<(Double)->Color>(
-    //::bwFractal,
-    //::pinkFractal,
+    ::bwFractal,
+    ::pinkFractal,
     ::yellowFractal,
 )
 
