@@ -13,7 +13,7 @@ class Julia(x0: Double, y0: Double): Fractal {
             field = Math.abs(value).coerceAtLeast(2 * Double.MIN_VALUE)
             R2 = value * value
         }
-    var maxIterations: Int = 200
+    override var maxIterations: Int = 200
 
     // метод, который проверяет лежит ли данная точка c во множестве Жюлиа
     override fun isInSet(c: Complex): Double{
