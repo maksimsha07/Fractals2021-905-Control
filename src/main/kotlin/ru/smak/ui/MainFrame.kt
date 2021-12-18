@@ -36,7 +36,16 @@ class MainFrame : JFrame() {
                     xSegment = Pair(xScr2Crt(r.x), xScr2Crt(r.x+r.width))
                     ySegment = Pair(yScr2Crt(r.y), yScr2Crt(r.y+r.height))
                 }
-                Mandelbrot.maxIterations = 250 - round(Math.abs(plane.ySegment.first-plane.ySegment.second) * 100).toInt()
+                var a= Math.abs(plane.ySegment.first-plane.ySegment.second)
+                if (a>=1.0){Mandelbrot.maxIterations = 50
+                }else{
+                    if (a>=0.5&&a<1.0){ Mandelbrot.maxIterations = 1000 - round(a * 900).toInt()
+                    }else {
+                        if (a>=0.2&&a<0.5){ Mandelbrot.maxIterations = 1000 - round(a * 2000).toInt()
+                        }else {
+                            if (a>=0.1&&a<0.2){ Mandelbrot.maxIterations = 1000 - round(a * 4000).toInt()
+                            }else{Mandelbrot.maxIterations = 1000 - round(a * 8000).toInt()}
+                }}}
                 repaint()
             }
         }
