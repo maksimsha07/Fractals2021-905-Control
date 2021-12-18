@@ -1,17 +1,18 @@
 package ru.smak.ui
 
+import ru.smak.ui.painting.FractalPainter
 import ru.smak.ui.painting.Painter
 import java.awt.Color
 import java.awt.Point
 import java.awt.Rectangle
 import java.awt.event.*
 import java.lang.Integer.min
-import java.util.*
 
 class SelectablePanel(vararg painters: Painter) : GraphicsPanel(*painters){
 
     private var pt1: Point? = null
     private var pt2: Point? = null
+
     private var rect: Rectangle? = null
         get(){
             pt1?.let { p1 ->
@@ -49,14 +50,7 @@ class SelectablePanel(vararg painters: Painter) : GraphicsPanel(*painters){
 
             override fun mouseReleased(e: MouseEvent?) {
                 super.mouseReleased(e)
-                ///
                 drawSelectRect()
-                rect?.let { r ->
-                    r.x
-                    r.y
-                    r.width
-                    r.height
-                }
                 rect?.let{ r->
                     selectListeners.forEach { it(r)}
                 }
@@ -65,7 +59,6 @@ class SelectablePanel(vararg painters: Painter) : GraphicsPanel(*painters){
                 rect = null
             }
         })
-
 
         addMouseMotionListener(object : MouseMotionAdapter(){
             override fun mouseDragged(e: MouseEvent?) {
