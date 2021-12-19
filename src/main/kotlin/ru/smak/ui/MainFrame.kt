@@ -1,6 +1,7 @@
 package ru.smak.ui
 
 import ru.smak.math.fractals.Mandelbrot
+import ru.smak.video.AnimationFrame
 import ru.smak.ui.painting.CartesianPlane
 import ru.smak.ui.painting.FractalPainter
 import ru.smak.ui.painting.fractals.colorizers
@@ -55,6 +56,11 @@ class MainFrame : JFrame() {
                 }
             }
         })
+
+        val af = AnimationFrame(plane, Mandelbrot, frameColorizer)
+        af.apply {
+            isVisible = true
+        }
 
         layout = GroupLayout(contentPane).apply {
             setHorizontalGroup(
