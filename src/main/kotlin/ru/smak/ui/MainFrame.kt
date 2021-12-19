@@ -96,6 +96,9 @@ class MainFrame : JFrame() {
             isVisible = false
         }
 
+        val menu = Menu(this)
+        jMenuBar = menu.jMenuBar
+
         layout = GroupLayout(contentPane).apply {
             setHorizontalGroup(
                 createSequentialGroup()

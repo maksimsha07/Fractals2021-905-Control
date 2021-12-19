@@ -3,8 +3,9 @@ package ru.smak.ui
 import java.awt.event.KeyEvent
 import javax.swing.*
 
-class Menu (val mf: MainFrame): JFrame() {
+class Menu (mf: MainFrame): JFrame() {
     var menuBar = JMenuBar()
+    val mw: MainFrame = mf
     val bgClr = ButtonGroup()
     val detail = JCheckBox("Детализация ")
     val f1 : JRadioButtonMenuItem = JRadioButtonMenuItem("Множество Мандельброта")
@@ -133,7 +134,5 @@ class Menu (val mf: MainFrame): JFrame() {
         editMenu.add(fractal)
         return editMenu
     }
-    }
-
 
 }
