@@ -1,8 +1,9 @@
-package ru.smak.ui.painting
+package ru.smak.video
 
 import ru.smak.math.fractals.Fractal
 import ru.smak.ui.GraphicsPanel
-import ru.smak.video.*
+import ru.smak.ui.painting.CartesianPlane
+import ru.smak.ui.painting.FractalPainter
 import java.awt.Color
 import java.awt.Dimension
 import java.awt.GridLayout
@@ -32,7 +33,8 @@ class AnimationFrame(plane: CartesianPlane, frac: Fractal, colorizer_p: (Double)
                     with(plane) {
                         keyFrames.add(CartesianPlane(xMin, xMax, yMin, yMax))
                     }
-                    val p = GraphicsPanel(FractalPainter(keyFrames.last(), frac)
+                    val p = GraphicsPanel(
+                        FractalPainter(keyFrames.last(), frac)
                         .apply {
                             colorizer = colorizer_p
                         }).apply {
@@ -65,7 +67,7 @@ class AnimationFrame(plane: CartesianPlane, frac: Fractal, colorizer_p: (Double)
                     VideoRecorder.frameHeight = 480
                     VideoRecorder.duration = 30
                     VideoRecorder.fps = fpsInput.text.toInt()
-                    VideoRecorder.createVideoAsync(keyFrames, "fractal.mp4", "mp4")
+                    VideoRecorder.createVideoAsync(keyFrames, "fractal.avi", "avi")
                 }
             }
         })
