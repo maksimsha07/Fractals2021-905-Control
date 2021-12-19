@@ -57,7 +57,11 @@ class SelectablePanel(vararg painters: Painter) : GraphicsPanel(*painters){
                     var rectAspectRatio = it.width/it.height.toDouble()
 
                     if((rectAspectRatio<minRes)||(rectAspectRatio>maxRes)) { //Если выбранная область не подходит нашему разрешению
-
+                        if(it.width>=it.height) { //Задание "Сохранение пропорций"
+                            var requiredHeight = (it.width/panelAspectRatio).toInt()
+                            it.y = it.y - (requiredHeight-it.height)/2
+                            it.height = requiredHeight
+                        }
                     }
                 }
 
