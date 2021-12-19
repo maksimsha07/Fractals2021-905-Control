@@ -16,6 +16,12 @@ class AnimationFrame(plane: CartesianPlane, frac: Fractal, colorizer_p: (Double)
     private val framePanel = JPanel()
     private val fpsInputLabel = JLabel("FPS:")
     private val fpsInput = JTextField("30")
+    private val durationInputLabel = JLabel("Duration: ")
+    private val durationInput = JTextField("10")
+    private val widthInputLabel = JLabel("Width: ")
+    private val widthInput = JTextField("640")
+    private val heightInputLabel = JLabel("Height: ")
+    private val heightInput = JTextField("380")
     private val addFrameButton = JButton("Add frame")
     private val startButton = JButton("Start")
     private var keyFrames = mutableListOf<CartesianPlane>()
@@ -23,8 +29,11 @@ class AnimationFrame(plane: CartesianPlane, frac: Fractal, colorizer_p: (Double)
 
     init {
         defaultCloseOperation = HIDE_ON_CLOSE
-        minimumSize = Dimension(600, 180)
+        minimumSize = Dimension(600, 220)
         fpsInputLabel.alignmentY = JLabel.CENTER_ALIGNMENT
+        durationInputLabel.alignmentY = JLabel.CENTER_ALIGNMENT
+        widthInputLabel.alignmentY = JLabel.CENTER_ALIGNMENT
+        heightInputLabel.alignmentY = JLabel.CENTER_ALIGNMENT
         framePanel.layout = GridLayout(1, 0, 5, 12)
 
         addFrameButton.addMouseListener(object : MouseAdapter() {
@@ -35,9 +44,9 @@ class AnimationFrame(plane: CartesianPlane, frac: Fractal, colorizer_p: (Double)
                     }
                     val p = GraphicsPanel(
                         FractalPainter(keyFrames.last(), frac)
-                        .apply {
-                            colorizer = colorizer_p
-                        }).apply {
+                            .apply {
+                                colorizer = colorizer_p
+                            }).apply {
                         maximumSize = Dimension(30, 30)
                     }
                     p.addMouseListener(object : MouseAdapter() {
@@ -63,9 +72,9 @@ class AnimationFrame(plane: CartesianPlane, frac: Fractal, colorizer_p: (Double)
                     imageCreated.add { _, data -> println("Created image: ${data.timestamp} / ${data.last}") }
                     imageCreatingFinished.add { _, _ -> println("Image creating finished") }
                     imageRecorded.add { _, data -> println("Recorded image: ${data.timestamp} / ${data.last}") }
-                    VideoRecorder.frameWidth = 640
-                    VideoRecorder.frameHeight = 480
-                    VideoRecorder.duration = 30
+                    VideoRecorder.frameWidth = widthInput.text.toInt()
+                    VideoRecorder.frameHeight = heightInput.text.toInt()
+                    VideoRecorder.duration = durationInput.text.toInt()
                     VideoRecorder.fps = fpsInput.text.toInt()
                     VideoRecorder.createVideoAsync(keyFrames, "fractal.avi", "avi")
                 }
@@ -76,49 +85,91 @@ class AnimationFrame(plane: CartesianPlane, frac: Fractal, colorizer_p: (Double)
         layout = GroupLayout(contentPane).apply {
             autoCreateGaps = true
             autoCreateContainerGaps = true
+            linkSize(fpsInputLabel, durationInputLabel)
+            linkSize(widthInputLabel, heightInputLabel)
+            linkSize(addFrameButton, startButton)
             setHorizontalGroup(
                 createParallelGroup()
                     .addComponent(
                         framePanel,
 //                        GroupLayout.PREFERRED_SIZE,
-//                        GroupLayout.PREFERRED_SIZE,
-//                        GroupLayout.PREFERRED_SIZE
                     )
-                    //.addGap(20)
                     .addGroup(
                         createSequentialGroup()
                             .addComponent(fpsInputLabel)
                             .addComponent(fpsInput, 50, GroupLayout.PREFERRED_SIZE, 50)
+                            .addPreferredGap(
+                                LayoutStyle.ComponentPlacement.RELATED,
+                                GroupLayout.PREFERRED_SIZE, Int.MAX_VALUE
+                            )
+                            .addComponent(heightInputLabel)
+                            .addComponent(heightInput, 50, GroupLayout.PREFERRED_SIZE, 50)
+                            .addPreferredGap(
+                                LayoutStyle.ComponentPlacement.RELATED,
+                                GroupLayout.PREFERRED_SIZE, Int.MAX_VALUE
+                            )
                             .addComponent(addFrameButton)
+                    )
+                    .addGroup(
+                        createSequentialGroup()
+                            .addComponent(durationInputLabel)
+                            .addComponent(durationInput, 50, GroupLayout.PREFERRED_SIZE, 50)
+                            .addPreferredGap(
+                                LayoutStyle.ComponentPlacement.RELATED,
+                                GroupLayout.PREFERRED_SIZE, Int.MAX_VALUE
+                            )
+                            .addComponent(widthInputLabel)
+                            .addComponent(widthInput, 50, GroupLayout.PREFERRED_SIZE, 50)
                             .addPreferredGap(
                                 LayoutStyle.ComponentPlacement.RELATED,
                                 GroupLayout.PREFERRED_SIZE, Int.MAX_VALUE
                             )
                             .addComponent(startButton)
-
                     )
             )
             setVerticalGroup(
                 createSequentialGroup()
-                    //.addGap(20)
                     .addComponent(
                         framePanel,
                         100,
                         GroupLayout.PREFERRED_SIZE,
                         GroupLayout.PREFERRED_SIZE
                     )
-                    //.addGap(20)
                     .addGroup(
-                        createParallelGroup()
-                            .addComponent(fpsInputLabel, 25, 25, 25)
-                            //.addGap(10)
-                            .addComponent(fpsInput, 26, 26, 26)
-                            //.addGap(50)
-                            .addComponent(addFrameButton)
-                            //.addGap(10)
-                            .addComponent(startButton)
+                        createParallelGroup(GroupLayout.Alignment.LEADING)
+                            .addGroup(
+                                createSequentialGroup()
+                                    .addComponent(fpsInputLabel, 25, 25, 25)
+                                    .addComponent(durationInputLabel, 25, 25, 25)
+                            )
+                            .addGroup(
+                                createSequentialGroup()
+                                    .addComponent(fpsInput, 26, 26, 26)
+                                    .addComponent(durationInput, 26, 26, 26)
+
+                            )
+                            .addGroup(
+                                createSequentialGroup()
+                                    .addComponent(widthInputLabel, 25, 25, 25)
+                                    .addComponent(heightInputLabel, 25, 25, 25)
+
+                            )
+                            .addGroup(
+                                createSequentialGroup()
+                                    .addComponent(widthInput, 26, 26, 26)
+                                    .addComponent(heightInput, 26, 26, 26)
+
+                            )
+                            .addGroup(
+                                createSequentialGroup()
+                                    .addComponent(addFrameButton)
+                                    .addComponent(startButton)
+                            )
                     )
-                //.addGap(20)
+                    .addPreferredGap(
+                        LayoutStyle.ComponentPlacement.RELATED,
+                        GroupLayout.PREFERRED_SIZE, Int.MAX_VALUE
+                    )
             )
         }
     }
