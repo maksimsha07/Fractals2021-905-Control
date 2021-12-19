@@ -58,6 +58,7 @@ class MainFrame : JFrame() {
                                 }else{Mandelbrot.maxIterations = 1000 - round(a * 8000).toInt()}
                     }}}
                 }
+                else{Mandelbrot.maxIterations = 50}
                 repaint()
             }
         }
@@ -88,8 +89,8 @@ class MainFrame : JFrame() {
                         if(buffer.size == 0){
                             buffer.push(mutableListOf(Pair(-2.0,1.0), Pair(-1.0,1.0)))
                         }
+                        repaint()
                     }
-                repaint()
 
             }
         })

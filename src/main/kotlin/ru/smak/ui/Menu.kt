@@ -33,21 +33,11 @@ class Menu (): JFrame() {
         menuBar.add(detail)
 
         //кнопка отмена операции
-        val undoBtn = JButton("Отменить")
-        undoBtn.addActionListener {
-        }
+
 
         //привязка к комбинации клавиш
-        undoBtn.mnemonic = KeyEvent.VK_Z
-        menuBar.add(undoBtn)
 
-        //кнопка сброса
-        val resetBtn = JButton("Сбросить")
-        resetBtn.addActionListener {
-        }
-
-        resetBtn.mnemonic = KeyEvent.VK_R
-        menuBar.add(resetBtn)
+        //кнопка сбр
     }
 
     private fun createFileMenu(): JMenu{
