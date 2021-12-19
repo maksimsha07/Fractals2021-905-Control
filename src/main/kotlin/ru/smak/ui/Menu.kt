@@ -5,6 +5,7 @@ import javax.swing.*
 class Menu (val mf: MainFrame): JFrame() {
     var menuBar = JMenuBar()
     val bgClr = ButtonGroup()
+    val detail = JCheckBox("Детализация ")
     val f1 : JRadioButtonMenuItem = JRadioButtonMenuItem("Множество Мандельброта")
     val f2 = JRadioButtonMenuItem("Множество Жюли")
     val bgF = ButtonGroup()
@@ -19,6 +20,15 @@ class Menu (val mf: MainFrame): JFrame() {
 //отдельные функции для создания вложенных пунктов меню
         menuBar.add(createFileMenu())
         menuBar.add(createEditMenu())
+        //кнопка для записи видео
+        val videoBtn = JButton("Записать видео ")
+        menuBar.add(videoBtn)
+        videoBtn.addActionListener {
+        }
+        //поле с галочкой для детализации
+        detail.addActionListener {
+        }
+        menuBar.add(detail)
     }
 
     private fun createEditMenu(): JMenu{
