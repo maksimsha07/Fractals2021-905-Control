@@ -1,5 +1,6 @@
 package ru.smak.ui
 
+import java.awt.event.KeyEvent
 import javax.swing.*
 
 class Menu (val mf: MainFrame): JFrame() {
@@ -25,10 +26,56 @@ class Menu (val mf: MainFrame): JFrame() {
         menuBar.add(videoBtn)
         videoBtn.addActionListener {
         }
+
         //поле с галочкой для детализации
         detail.addActionListener {
         }
         menuBar.add(detail)
+
+        //кнопка отмена операции
+        val undoBtn = JButton("Отменить")
+        undoBtn.addActionListener {
+        }
+
+        //привязка к комбинации клавиш
+        undoBtn.mnemonic = KeyEvent.VK_Z
+        menuBar.add(undoBtn)
+
+        //кнопка сброса
+        val resetBtn = JButton("Сбросить")
+        resetBtn.addActionListener {
+        }
+
+        resetBtn.mnemonic = KeyEvent.VK_R
+        menuBar.add(resetBtn)
+    }
+
+    private fun createFileMenu(): JMenu{
+        //Создание выпадающего меню
+        val fileMenu = JMenu("Файл")
+        //Пункт меню "Открыть"
+        val open = JMenuItem("Открыть")
+        open.addActionListener {
+
+        }
+        //Пункт меню "Сохранить как..."
+        val save = JMenu("Сохранить как...")
+        //Подпункты "Сохранить как..."
+        val format1 = JMenuItem("Собственный формат")
+        format1.addActionListener {
+            f1.doClick()
+        }
+        val format2 = JMenuItem("Изображение")
+        format2.addActionListener {
+        }
+        //Добавление подпунктов в пункты
+        save.add(format1)
+        save.add(format2)
+        fileMenu.add(open)
+        // Добавление разделителя
+        fileMenu.addSeparator()
+        fileMenu.add(save)
+        return fileMenu
     }
 
     private fun createEditMenu(): JMenu{
@@ -88,31 +135,5 @@ class Menu (val mf: MainFrame): JFrame() {
     }
     }
 
-    private fun createFileMenu(): JMenu{
-        //Создание выпадающего меню
-        val fileMenu = JMenu("Файл")
-        //Пункт меню "Открыть"
-        val open = JMenuItem("Открыть")
-        open.addActionListener {
 
-        }
-        //Пункт меню "Сохранить как..."
-        val save = JMenu("Сохранить как...")
-        //Подпункты "Сохранить как..."
-        val format1 = JMenuItem("Собственный формат")
-        format1.addActionListener {
-            f1.doClick()
-        }
-        val format2 = JMenuItem("Изображение")
-        format2.addActionListener {
-        }
-        //Добавление подпунктов в пункты
-        save.add(format1)
-        save.add(format2)
-        fileMenu.add(open)
-        // Добавление разделителя
-        fileMenu.addSeparator()
-        fileMenu.add(save)
-        return fileMenu
-    }
 }
