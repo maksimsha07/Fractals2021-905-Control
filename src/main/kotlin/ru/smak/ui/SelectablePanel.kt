@@ -60,6 +60,7 @@ class SelectablePanel(vararg painters: Painter) : GraphicsPanel(*painters){
             }
         })
 
+
         addMouseMotionListener(object : MouseMotionAdapter(){
             override fun mouseDragged(e: MouseEvent?) {
                 super.mouseDragged(e)

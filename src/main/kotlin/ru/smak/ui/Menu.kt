@@ -3,14 +3,14 @@ package ru.smak.ui
 import java.awt.event.KeyEvent
 import javax.swing.*
 
-class Menu (mf: MainFrame): JFrame() {
+class Menu (): JFrame() {
     var menuBar = JMenuBar()
-    val mw: MainFrame = mf
     val bgClr = ButtonGroup()
     val detail = JCheckBox("Детализация ")
     val f1 : JRadioButtonMenuItem = JRadioButtonMenuItem("Множество Мандельброта")
     val f2 = JRadioButtonMenuItem("Множество Жюли")
     val bgF = ButtonGroup()
+    val videoBtn = JButton("Записать видео ")
 
     init {
         //заполняем меню
@@ -23,7 +23,6 @@ class Menu (mf: MainFrame): JFrame() {
         menuBar.add(createFileMenu())
         menuBar.add(createEditMenu())
         //кнопка для записи видео
-        val videoBtn = JButton("Записать видео ")
         menuBar.add(videoBtn)
         videoBtn.addActionListener {
         }
