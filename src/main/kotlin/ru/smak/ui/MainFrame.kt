@@ -1,5 +1,6 @@
 package ru.smak.ui
 
+import ru.smak.math.fractals.Fractal
 import ru.smak.math.fractals.Mandelbrot
 import ru.smak.ui.painting.CartesianPlane
 import ru.smak.ui.painting.FractalPainter
@@ -9,20 +10,26 @@ import java.awt.Dimension
 import java.awt.Rectangle
 import java.awt.event.ComponentAdapter
 import java.awt.event.ComponentEvent
-import javax.swing.GroupLayout
-import javax.swing.JFrame
+import java.io.FileOutputStream
+import java.io.ObjectOutputStream
+import javax.swing.*
+import javax.swing.filechooser.FileNameExtensionFilter
 import kotlin.random.Random
 
 class MainFrame : JFrame() {
-
     private val fractalPanel: SelectablePanel
     private val plane: CartesianPlane
 
+    private val mainPanel: GraphicsPanel
     init {
         defaultCloseOperation = EXIT_ON_CLOSE
+        mainPanel = GraphicsPanel()
+        plane = CartesianPlane(
+            -2.0, 1.0, -1.0, 1.0
+        )
+
         minimumSize = Dimension(600, 400)
 
-        plane = CartesianPlane(-2.0, 1.0, -1.0, 1.0)
 
         fractalPanel = SelectablePanel(
             FractalPainter(plane, Mandelbrot).apply {
@@ -39,12 +46,14 @@ class MainFrame : JFrame() {
             }
         }
 
+
         layout = GroupLayout(contentPane).apply {
             setHorizontalGroup(
                 createSequentialGroup()
                     .addGap(4)
                     .addComponent(fractalPanel)
                     .addGap(4)
+
             )
             setVerticalGroup(
                 createSequentialGroup()
