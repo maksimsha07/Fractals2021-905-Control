@@ -93,7 +93,7 @@ class MainFrame : JFrame() {
 
         val af = AnimationFrame(plane, Mandelbrot, frameColorizer)
         af.apply {
-            isVisible = false
+            isVisible = true
         }
 
         layout = GroupLayout(contentPane).apply {
