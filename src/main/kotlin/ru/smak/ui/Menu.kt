@@ -4,8 +4,10 @@ import javax.swing.*
 
 class Menu (val mf: MainFrame): JFrame() {
     var menuBar = JMenuBar()
+    val bgClr = ButtonGroup()
     val f1 : JRadioButtonMenuItem = JRadioButtonMenuItem("Множество Мандельброта")
     val f2 = JRadioButtonMenuItem("Множество Жюли")
+    val bgF = ButtonGroup()
 
     init {
         //заполняем меню
@@ -20,7 +22,60 @@ class Menu (val mf: MainFrame): JFrame() {
     }
 
     private fun createEditMenu(): JMenu{
+        val editMenu = JMenu("Настройки")
+        val clrSchemes = JMenu("Цветовая схема")
+        val fractal = JMenu("Фрактал")
 
+        // меню-переключатели для цветов
+        val clr1 = JRadioButtonMenuItem("Цветовая схема 1")
+        clr1.actionCommand = "colorScheme1"
+        val clr2 = JRadioButtonMenuItem("Цветовая схема 2")
+        clr2.actionCommand = "colorScheme2"
+        val clr3 = JRadioButtonMenuItem("Цветовая схема 3")
+        clr3.actionCommand = "colorScheme3"
+        val clr4 = JRadioButtonMenuItem("Цветовая схема 4")
+        clr4.actionCommand = "colorScheme4"
+        val clr5 = JRadioButtonMenuItem("Цветовая схема 5")
+        clr5.actionCommand = "colorScheme5"
+
+        clr1.doClick()
+
+        // организуем переключатели в логическую группу
+        bgClr.add(clr1)
+        bgClr.add(clr2)
+        bgClr.add(clr3)
+        bgClr.add(clr4)
+        bgClr.add(clr5)
+        clrSchemes.add(clr1)
+        clrSchemes.add(clr2)
+        clrSchemes.add(clr3)
+        clrSchemes.add(clr4)
+        clrSchemes.add(clr5)
+        bgClr.selection.actionCommand
+
+        //меню-переключатели для выбора фрактала
+        f1.addActionListener {
+        }
+        f1.actionCommand="1"
+        f1.doClick()
+
+        f2.actionCommand="2"
+        f2.addActionListener {
+        }
+
+        // организуем переключатели в логическую группу
+        bgF.add(f1)
+        bgF.add(f2)
+        fractal.add(f1)
+        fractal.add(f2)
+        bgF.selection.actionCommand
+
+        // добавим все в меню
+        editMenu.add(clrSchemes)
+        editMenu.add(JSeparator()) //разделитель
+        editMenu.add(fractal)
+        return editMenu
+    }
     }
 
     private fun createFileMenu(): JMenu{
