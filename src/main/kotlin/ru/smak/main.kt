@@ -1,7 +1,9 @@
 package ru.smak
 
+import ru.smak.math.fractals.Mandelbrot
 import ru.smak.ui.MainFrame
 import ru.smak.ui.painting.CartesianPlane
+import ru.smak.ui.painting.fractals.pinkFractal
 import ru.smak.video.*
 import ru.smak.video.VideoRecorder
 import ru.smak.video.imageCreated
