@@ -24,14 +24,14 @@ class MainFrame : JFrame() {
     private val plane: CartesianPlane
     private var frameColorizer: (Double)->Color    // переменная, в которой будет храниться значение колорайзера для фракталов
     private var juliaFrame: JFrame        // окно, в котором будет отображаться множество Жюлиа
-    private var buffer = ArrayDeque<List<Pair<Double,Double>>>()
+    private var buffer = ArrayDeque<List<Double>>()
 
     init {
         val menu = Menu()
         defaultCloseOperation = EXIT_ON_CLOSE
         minimumSize = Dimension(600, 400)
         juliaFrame = JFrame()
-        buffer.push(mutableListOf(Pair(-2.0,1.0), Pair(-1.0,1.0)))
+        buffer.push(mutableListOf(-2.0,1.0,-1.0,1.0,50.0))
         plane = CartesianPlane(-2.0, 1.0, -1.0, 1.0)
         fractalPanel = SelectablePanel(
             FractalPainter(plane, Mandelbrot).apply {
@@ -44,7 +44,7 @@ class MainFrame : JFrame() {
                 with(plane){
                     xSegment = Pair(xScr2Crt(r.x), xScr2Crt(r.x+r.width))
                     ySegment = Pair(yScr2Crt(r.y), yScr2Crt(r.y+r.height))
-                    buffer.push(mutableListOf(xSegment,ySegment))
+                    buffer.push(mutableListOf(xSegment.first,xSegment.second,ySegment.first,ySegment.second,Mandelbrot.maxIterations.toDouble()))
                 }
                 if(menu.detail.isSelected){
                     var a= Math.abs(plane.ySegment.first-plane.ySegment.second)
@@ -84,10 +84,30 @@ class MainFrame : JFrame() {
                     if (e.keyChar=='я' || e.keyChar=='z') {
                         println("Назад")
                         var segment = buffer.pop()
-                        plane.xSegment = segment[0]
-                        plane.ySegment = segment[1]
+                        plane.xSegment = Pair(segment[0],segment[1])
+                        plane.ySegment = Pair(segment[2],segment[3])
+                        Mandelbrot.maxIterations = segment[4].toInt()
                         if(buffer.size == 0){
-                            buffer.push(mutableListOf(Pair(-2.0,1.0), Pair(-1.0,1.0)))
+                            buffer.push(mutableListOf(-2.0,1.0,-1.0,1.0,50.0))
+                        }
+                        repaint()
+                    }
+
+            }
+        })
+
+        menu.detail.addKeyListener(object : KeyAdapter(){
+            override fun keyTyped(e: KeyEvent?) {
+                super.keyPressed(e)
+                if (e != null)
+                    if (e.keyChar=='я' || e.keyChar=='z') {
+                        println("Назад")
+                        var segment = buffer.pop()
+                        plane.xSegment = Pair(segment[0],segment[1])
+                        plane.ySegment = Pair(segment[2],segment[3])
+                        Mandelbrot.maxIterations = segment[4].toInt()
+                        if(buffer.size == 0){
+                            buffer.push(mutableListOf(-2.0,1.0,-1.0,1.0,50.0))
                         }
                         repaint()
                     }
