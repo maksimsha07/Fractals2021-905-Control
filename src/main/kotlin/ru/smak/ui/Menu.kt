@@ -64,11 +64,11 @@ class Menu (mf: MainFrame): JFrame() {
         //Подпункты "Сохранить как..."
         val format1 = JMenuItem("Собственный формат")
         format1.addActionListener {
+
             f1.doClick()
         }
         val format2 = JMenuItem("Изображение")
-        format2.addActionListener {
-        }
+        format2.addActionListener {        }
         //Добавление подпунктов в пункты
         save.add(format1)
         save.add(format2)
@@ -96,6 +96,11 @@ class Menu (mf: MainFrame): JFrame() {
         val clr5 = JRadioButtonMenuItem("Цветовая схема 5")
         clr5.actionCommand = "colorScheme5"
 
+        clr1.addActionListener {  }
+        clr2.addActionListener {  }
+        clr3.addActionListener {  }
+        clr4.addActionListener {  }
+        clr5.addActionListener {  }
         clr1.doClick()
 
         // организуем переключатели в логическую группу
