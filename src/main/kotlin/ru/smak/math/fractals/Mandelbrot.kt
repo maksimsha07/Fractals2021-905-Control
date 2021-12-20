@@ -3,6 +3,7 @@ package ru.smak.math.fractals
 import org.kotlinmath.Complex
 import org.kotlinmath.complex
 import ru.smak.math.complex.mod2
+import kotlin.math.abs
 
 object Mandelbrot : Fractal{
 
@@ -12,7 +13,7 @@ object Mandelbrot : Fractal{
             field = Math.abs(value).coerceAtLeast(2 * Double.MIN_VALUE)
             R2 = value * value
         }
-    var maxIterations: Int = 200
+    var maxIterations: Int = 50
 
     override fun isInSet(c: Complex): Double{
         var z = complex(0, 0)
