@@ -1,5 +1,6 @@
 package ru.smak.ui
 
+import ru.smak.math.fractals.Detailing
 import ru.smak.math.fractals.Mandelbrot
 import ru.smak.ui.painting.CartesianPlane
 import ru.smak.ui.painting.FractalPainter
@@ -47,18 +48,9 @@ class MainFrame : JFrame() {
                     buffer.push(mutableListOf(xSegment.first,xSegment.second,ySegment.first,ySegment.second,Mandelbrot.maxIterations.toDouble()))
                 }
                 if(menu.detail.isSelected){
-                    var a= Math.abs(plane.ySegment.first-plane.ySegment.second)
-                    if (a>=1.0){Mandelbrot.maxIterations = 50
-                    }else{
-                        if (a>=0.5&&a<1.0){ Mandelbrot.maxIterations = 1000 - round(a * 900).toInt()
-                        }else {
-                            if (a>=0.2&&a<0.5){ Mandelbrot.maxIterations = 1000 - round(a * 2000).toInt()
-                            }else {
-                                if (a>=0.1&&a<0.2){ Mandelbrot.maxIterations = 1000 - round(a * 4000).toInt()
-                                }else{Mandelbrot.maxIterations = 1000 - round(a * 8000).toInt()}
-                    }}}
+                    Mandelbrot.maxIterations = Detailing(plane).iterations
                 }
-                else{Mandelbrot.maxIterations = 50}
+                else{Mandelbrot.maxIterations = 200}
                 repaint()
             }
         }
