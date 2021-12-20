@@ -1,5 +1,6 @@
 package ru.smak.video
 
+import io.humble.video.Video
 import ru.smak.math.fractals.Fractal
 import ru.smak.ui.GraphicsPanel
 import ru.smak.ui.painting.CartesianPlane
@@ -9,6 +10,7 @@ import java.awt.Dimension
 import java.awt.GridLayout
 import java.awt.event.MouseAdapter
 import java.awt.event.MouseEvent
+import java.util.concurrent.atomic.AtomicInteger
 import javax.swing.*
 
 class AnimationFrame(plane: CartesianPlane, frac: Fractal, colorizer_p: (Double) -> Color) : JDialog() {
@@ -21,15 +23,16 @@ class AnimationFrame(plane: CartesianPlane, frac: Fractal, colorizer_p: (Double)
     private val widthInputLabel = JLabel("Width: ")
     private val widthInput = JTextField("640")
     private val heightInputLabel = JLabel("Height: ")
-    private val heightInput = JTextField("380")
+    private val heightInput = JTextField("480")
     private val addFrameButton = JButton("Add frame")
     private val startButton = JButton("Start")
+    private val progressBar = JProgressBar()
     private var keyFrames = mutableListOf<CartesianPlane>()
 
 
     init {
         defaultCloseOperation = HIDE_ON_CLOSE
-        minimumSize = Dimension(600, 220)
+        minimumSize = Dimension(600, 240)
         fpsInputLabel.alignmentY = JLabel.CENTER_ALIGNMENT
         durationInputLabel.alignmentY = JLabel.CENTER_ALIGNMENT
         widthInputLabel.alignmentY = JLabel.CENTER_ALIGNMENT
@@ -55,7 +58,7 @@ class AnimationFrame(plane: CartesianPlane, frac: Fractal, colorizer_p: (Double)
                             framePanel.remove(p)
                             framePanel.revalidate()
                             framePanel.repaint()
-                            println("Кол-во ключевых кадров: ${keyFrames.size}")
+                            println("Кол-во ключевых кадров is ${keyFrames.size}")
                         }
                     })
                     framePanel.add(p)
@@ -65,21 +68,23 @@ class AnimationFrame(plane: CartesianPlane, frac: Fractal, colorizer_p: (Double)
         })
 
         startButton.addMouseListener(object : MouseAdapter() {
+            val x = AtomicInteger(0)
             override fun mouseClicked(e: MouseEvent?) {
                 if (e?.button == 1) {
                     videoRecordingStarted.add { _, _ -> println("Video recording started") }
                     videoRecordingFinished.add { _, _ -> println("Video recording finished") }
-                    imageCreated.add { _, data -> println("Created image: ${data.timestamp} / ${data.last}") }
+                    imageCreated.add { _, data ->
+                        println("Created image: ${data.timestamp} / ${data.last}")
+                        progressBar.value = (x.incrementAndGet().toFloat() / (data.last+1) * 100).toInt()
+                    }
                     imageCreatingFinished.add { _, _ -> println("Image creating finished") }
                     imageRecorded.add { _, data -> println("Recorded image: ${data.timestamp} / ${data.last}") }
                     VideoRecorder.frameWidth = widthInput.text.toInt()
                     VideoRecorder.frameHeight = heightInput.text.toInt()
                     VideoRecorder.duration = durationInput.text.toInt()
                     VideoRecorder.fps = fpsInput.text.toInt()
-                                        val fileChooser = JFileChooser()
-                    fileChooser.showSaveDialog(framePanel)
-                    VideoRecorder.createVideoAsync(keyFrames,"${fileChooser.currentDirectory}" +
-                            "\\${fileChooser.selectedFile.name}.avi" , "avi")
+                    VideoRecorder.colorizer = colorizer_p
+                    VideoRecorder.createVideoAsync(keyFrames, "fractal.avi", "avi")
                 }
             }
         })
@@ -91,12 +96,14 @@ class AnimationFrame(plane: CartesianPlane, frac: Fractal, colorizer_p: (Double)
             linkSize(fpsInputLabel, durationInputLabel)
             linkSize(widthInputLabel, heightInputLabel)
             linkSize(addFrameButton, startButton)
+//            linkSize(progressBar, framePanel)
             setHorizontalGroup(
                 createParallelGroup()
                     .addComponent(
                         framePanel,
 //                        GroupLayout.PREFERRED_SIZE,
                     )
+                    .addComponent(progressBar)
                     .addGroup(
                         createSequentialGroup()
                             .addComponent(fpsInputLabel)

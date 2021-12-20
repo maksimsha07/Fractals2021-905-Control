@@ -165,7 +165,7 @@ internal object VideoRecorder {
         return image
     }
 
-    private var colorizer: (Double)-> Color = ::yellowFractal
+    var colorizer: (Double)-> Color = ::yellowFractal
 
     private val threadCount = 16
     private val poolTaskCount = threadCount * 4
