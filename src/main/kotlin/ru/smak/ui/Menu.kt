@@ -11,6 +11,7 @@ class Menu (): JFrame() {
     val f2 = JRadioButtonMenuItem("Множество Жюли")
     val bgF = ButtonGroup()
     val videoBtn = JButton("Записать видео ")
+    val format1 = JMenuItem("Собственный формат")
 
     init {
         //заполняем меню
@@ -51,7 +52,6 @@ class Menu (): JFrame() {
         //Пункт меню "Сохранить как..."
         val save = JMenu("Сохранить как...")
         //Подпункты "Сохранить как..."
-        val format1 = JMenuItem("Собственный формат")
         format1.addActionListener {
 
             f1.doClick()

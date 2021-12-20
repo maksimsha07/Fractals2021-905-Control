@@ -50,7 +50,7 @@ object SaveFractal {
         }
     }
     /**
-     * chButtonM.addActionListener {
+     chButtonM.addActionListener {
     run {
     SaveFractal.invoke(plane)
     }

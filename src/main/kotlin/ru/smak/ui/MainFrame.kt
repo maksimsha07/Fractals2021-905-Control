@@ -15,6 +15,7 @@ import java.lang.Math.round
 import java.util.*
 import javax.swing.GroupLayout
 import javax.swing.JFrame
+import javax.swing.JMenuItem
 import javax.swing.KeyStroke
 import kotlin.random.Random
 
@@ -154,6 +155,11 @@ class MainFrame : JFrame() {
 
             }
         })
+
+        menu.format1.addActionListener{
+                SaveFractal.invoke(plane)
+            }
+
 
 
 
