@@ -83,6 +83,7 @@ class AnimationFrame(plane: CartesianPlane, frac: Fractal, colorizer_p: (Double)
                     VideoRecorder.frameHeight = heightInput.text.toInt()
                     VideoRecorder.duration = durationInput.text.toInt()
                     VideoRecorder.fps = fpsInput.text.toInt()
+                    VideoRecorder.colorizer = colorizer_p
                     VideoRecorder.createVideoAsync(keyFrames, "fractal.avi", "avi")
                 }
             }
