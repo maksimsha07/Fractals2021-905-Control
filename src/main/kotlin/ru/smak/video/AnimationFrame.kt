@@ -84,7 +84,11 @@ class AnimationFrame(plane: CartesianPlane, frac: Fractal, colorizer_p: (Double)
                     VideoRecorder.duration = durationInput.text.toInt()
                     VideoRecorder.fps = fpsInput.text.toInt()
                     VideoRecorder.colorizer = colorizer_p
-                    VideoRecorder.createVideoAsync(keyFrames, "fractal.avi", "avi")
+                    val fileChooser = JFileChooser()
+                    fileChooser.showSaveDialog(framePanel)
+                    if (fileChooser.selectedFile == null) {return}
+                    VideoRecorder.createVideoAsync(keyFrames,"${fileChooser.currentDirectory}" +
+                            "\\${fileChooser.selectedFile.name}.avi" , "avi")
                 }
             }
         })
