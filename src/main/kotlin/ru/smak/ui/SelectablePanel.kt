@@ -1,6 +1,5 @@
 package ru.smak.ui
 
-import ru.smak.ui.painting.FractalPainter
 import ru.smak.ui.painting.Painter
 import java.awt.Color
 import java.awt.Point
@@ -50,9 +49,28 @@ class SelectablePanel(vararg painters: Painter) : GraphicsPanel(*painters){
 
             override fun mouseReleased(e: MouseEvent?) {
                 super.mouseReleased(e)
-                drawSelectRect()
-                rect?.let{ r->
-                    selectListeners.forEach { it(r)}
+                var panelAspectRatio = width/height.toDouble()  //Соотношение сторон панели
+                val minRes:Double = panelAspectRatio-0.2    //Соотношение сторон - погрешность
+                val maxRes:Double = panelAspectRatio+0.2    //Соотношение сторон панели + погрешность
+                rect?.let {
+                    var rectAspectRatio = it.width/it.height.toDouble() //Соотношение сторон выбранной области
+
+                    if((rectAspectRatio<minRes)||(rectAspectRatio>maxRes)) { //Если выбранная область не подходит нашему Соотношению сторон
+                        if(it.width>=it.height) {
+                            var requiredHeight = (it.width/panelAspectRatio).toInt()
+                            it.y = it.y - (requiredHeight-it.height)/2
+                            it.height = requiredHeight
+                        }
+                        else if(it.width<it.height) {
+                            var requiredWidth = (it.height*panelAspectRatio).toInt()
+                            it.x = it.x - (requiredWidth - it.width) / 2
+                            it.width = requiredWidth
+                        }
+                        selectListeners.forEach { sl -> sl(it)}
+                    }
+                    else{
+                        selectListeners.forEach { sl -> sl(it)}
+                    }
                 }
                 pt1 = null
                 pt2 = null

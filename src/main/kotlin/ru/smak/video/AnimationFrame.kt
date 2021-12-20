@@ -23,7 +23,7 @@ class AnimationFrame(plane: CartesianPlane, frac: Fractal, colorizer_p: (Double)
     private val widthInputLabel = JLabel("Width: ")
     private val widthInput = JTextField("640")
     private val heightInputLabel = JLabel("Height: ")
-    private val heightInput = JTextField("380")
+    private val heightInput = JTextField("480")
     private val addFrameButton = JButton("Add frame")
     private val startButton = JButton("Start")
     private val progressBar = JProgressBar()
@@ -143,7 +143,7 @@ class AnimationFrame(plane: CartesianPlane, frac: Fractal, colorizer_p: (Double)
                         100,
                         GroupLayout.PREFERRED_SIZE,
                         GroupLayout.PREFERRED_SIZE
-                    )
+                    
                     .addComponent(progressBar)
                     .addGroup(
                         createParallelGroup(GroupLayout.Alignment.LEADING)
