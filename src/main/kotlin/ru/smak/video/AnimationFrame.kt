@@ -55,7 +55,7 @@ class AnimationFrame(plane: CartesianPlane, frac: Fractal, colorizer_p: (Double)
                             framePanel.remove(p)
                             framePanel.revalidate()
                             framePanel.repaint()
-                            println("Кол-во ключевых кадров is ${keyFrames.size}")
+                            println("Кол-во ключевых кадров: ${keyFrames.size}")
                         }
                     })
                     framePanel.add(p)

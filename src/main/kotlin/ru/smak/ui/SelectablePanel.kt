@@ -1,5 +1,6 @@
 package ru.smak.ui
 
+import ru.smak.ui.painting.FractalPainter
 import ru.smak.ui.painting.Painter
 import java.awt.Color
 import java.awt.Point
@@ -49,7 +50,6 @@ class SelectablePanel(vararg painters: Painter) : GraphicsPanel(*painters){
 
             override fun mouseReleased(e: MouseEvent?) {
                 super.mouseReleased(e)
-                ///
                 drawSelectRect()
                 rect?.let{ r->
                     selectListeners.forEach { it(r)}
