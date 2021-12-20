@@ -12,6 +12,9 @@ fun catmullRom(t: Double, points: List<Complex>): Complex {
     segment = min(segment, size-2)
 
     val param = t * (size-1) - segment
+    if (size == 2) {
+        return catmullRomSpline(points[0], points[0], points[1], points[1], t)
+    }
     return when (segment) {
         0 -> catmullRomSpline(points[0], points[0], points[1], points[2], param)
         size-2 -> catmullRomSpline(points[size - 3], points[size - 2], points[size - 1], points[size - 1], param)
