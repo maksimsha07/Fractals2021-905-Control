@@ -143,7 +143,7 @@ class AnimationFrame(plane: CartesianPlane, frac: Fractal, colorizer_p: (Double)
                         100,
                         GroupLayout.PREFERRED_SIZE,
                         GroupLayout.PREFERRED_SIZE
-                    
+                    )
                     .addComponent(progressBar)
                     .addGroup(
                         createParallelGroup(GroupLayout.Alignment.LEADING)
